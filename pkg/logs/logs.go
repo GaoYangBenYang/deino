@@ -1,6 +1,5 @@
 package logs
 
-
 //日志信息级别:
 const (
 	//OFF 		| 关闭：最高级别，不打印日志。
@@ -22,5 +21,4 @@ const (
 )
 
 type log struct {
-	
 }

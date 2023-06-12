@@ -3,6 +3,7 @@ package commands
 import (
 	"flag"
 	"io"
+	"strings"
 )
 
 // command结构体
@@ -33,4 +34,17 @@ type Command struct {
 
 	// output out writer if set in SetOutput(w)
 	output *io.Writer
+}
+
+//可用命令切片
+var AvailableCommands = []*Command{}
+
+// GetName方法返回命令的名称:Usage行中的第一个单词。
+func (c *Command) GetName() string {
+	name := c.UsageLine
+	i := strings.Index(name, " ")
+	if i >= 0 {
+		name = name[:i]
+	}
+	return name
 }

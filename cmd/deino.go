@@ -2,29 +2,25 @@ package cmd
 
 import (
 	"fmt"
-	"log"
+	"os"
+
+	"github.com/GaoYangBenYang/dego/cmd/commands"
+	"github.com/GaoYangBenYang/dego/pkg/utils"
 )
 
-const USAGE_TEMPLATE = `Bee is a Fast and Flexible tool for managing your Beego Web Application.
-
-You are using bee for beego v2.x. If you are working on beego v1.x, please downgrade version to bee v1.12.0
-
+// 使用方法渲染模板
+const USAGE_TEMPLATE = `
 {{"USAGE" | headline}}
-    {{"bee command [arguments]" | bold}}
+    {{"dego command [arguments]" | bold}}
 
 {{"AVAILABLE COMMANDS" | headline}}
-{{range .}}{{if .Runnable}}
-    {{.Name | printf "%-11s" | bold}} {{.Short}}{{end}}{{end}}
+	{{range .}}{{if .Runnable}}
+		{{.Name | printf "%-11s" | bold}} {{.Short}}{{end}}{{end}}
 
-Use {{"bee help [command]" | bold}} for more information about a command.
-
-{{"ADDITIONAL HELP TOPICS" | headline}}
-{{range .}}{{if not .Runnable}}
-    {{.Name | printf "%-11s"}} {{.Short}}{{end}}{{end}}
-
-Use {{"bee help [topic]" | bold}} for more information about that topic.
+Use {{"dego help [command]" | bold}} for more information about a command.
 `
 
+// 帮助文档模板渲染
 const HELP_TEMPLATE = `
 {{"USAGE" | headline}}
 {{.UsageLine | printf "bee %s" | bold}}
@@ -36,34 +32,38 @@ const HELP_TEMPLATE = `
 {{tmpltostr .Long . | trim}}
 `
 
+// 错误模板渲染
 const ERROR_TEMPLATE = `
-bee: %s.Use {{"bee help" | bold}} for more information.
+dego: %s.
+
+Use {{"dego help" | bold}} for more information.
 `
 
 func Usage() {
-	fmt.Printf(USAGE_TEMPLATE)
+	//模板渲染
+	utils.TemplateRendering(USAGE_TEMPLATE, commands.AvailableCommands)
 }
 
 func Help(args []string) {
+	//除了help命令外无其他参数,进行使用方法渲染
 	if len(args) == 0 {
 		Usage()
+		os.Exit(0)
+	}
+	//子命令过多打印错误并退出
+	if len(args) != 1 {
+		utils.PrintErrorAndExit("Too many arguments", ERROR_TEMPLATE)
 		return
 	}
-	if len(args) != 1 {
-		//设置
-		log.SetFlags(log.Lmicroseconds | log.Ldate)
-		log.Println("Too many arguments")
+	//子命令文档渲染
+	for _, cmd := range commands.AvailableCommands {
+		fmt.Println(args[0],cmd)
+		// if cmd.GetName() == args[0] {
+		// 	// utils.TemplateRendering(HELP_TEMPLATE, cmd)
+		// 	fmt.Println("子帮助文档")
+		// 	return
+		// }
 	}
-	// USAGE
-	// 	bee command [arguments]
-
-	// COMMANDS
-
-	//     version     Prints the current Bee version
-	// 	update      Update Bee
-	//     new         Creates a Beego application
-	//     run         Run the application by starting a local development server
-
-	// Use deino help [command] for more information about a command.
-
+	//打印错误并退出
+	utils.PrintErrorAndExit("Unknown help topic", ERROR_TEMPLATE)
 }

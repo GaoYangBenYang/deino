@@ -1,4 +1,4 @@
-module github.com/GaoYangBenYang/deino
+module github.com/GaoYangBenYang/dego
 
 go 1.20
 
