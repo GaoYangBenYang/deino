@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"html/template"
 	"os"
-
-	// "os"
 	"os/exec"
 	"strings"
 
@@ -34,10 +32,10 @@ func TemplateRendering(text string, data interface{}) {
 	}
 }
 
-// FuncMap 返回不同模板中使用的函数Map
+// FuncMap 返回不同模板中使用的函数映射
 func FuncMap() template.FuncMap {
 	return template.FuncMap{
-		"trim": strings.TrimSpace,
+		"trim":	 	  strings.TrimSpace,
 		"bold":       colors.Bold,
 		"headline":   colors.MagentaBold,
 		"foldername": colors.RedBold,

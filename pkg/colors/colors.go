@@ -2,17 +2,17 @@ package colors
 
 import "fmt"
 
-//粗体
+//Bold 返回一个粗体字符串
 func Bold(message string) string {
 	return fmt.Sprintf("\x1b[1m%s\x1b[0m", message)
 }
 
-// Black returns a black string
+// Black 返回一个黑色字符串
 func Black(message string) string {
 	return fmt.Sprintf("\x1b[30m%s\x1b[0m", message)
 }
 
-// White returns a white string
+// White 返回一个白色字符串
 func White(message string) string {
 	return fmt.Sprintf("\x1b[37m%s\x1b[0m", message)
 }
@@ -92,7 +92,7 @@ func GrayBold(message string) string {
 	return fmt.Sprintf("\x1b[37m%s\x1b[0m", Bold(message))
 }
 
-// MagentaBold returns a magenta Bold string
+// MagentaBold 返回洋红色粗体字符串
 func MagentaBold(message string) string {
 	return fmt.Sprintf("\x1b[35m%s\x1b[0m", Bold(message))
 }
