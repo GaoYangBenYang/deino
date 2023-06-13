@@ -29,6 +29,10 @@ func main() {
 		cmd.Help(args[1:])
 		os.Exit(0)
 	}
+	if args[0] == "version" { 
+		
+		os.Exit(0)
+	}
 	//执行命令
 	// for _, cmd := range commands.AvailableCommands {
 	// 	if cmd.GetName() == args[0] && cmd.Run != nil {
