@@ -3,7 +3,10 @@ package commands
 import (
 	"flag"
 	"io"
+	"os"
 	"strings"
+
+	"github.com/GaoYangBenYang/deino/pkg/utils"
 )
 
 // command结构体
@@ -39,6 +42,8 @@ type Command struct {
 //可用命令切片
 var AvailableCommands = []*Command{}
 
+
+var cmdUsage = `Use {{printf "bee help %s" .Name | bold}} for more information.{{endline}}`
 // GetName方法返回命令的名称:Usage行中的第一个单词。
 func (c *Command) GetName() string {
 	name := c.UsageLine
@@ -47,4 +52,10 @@ func (c *Command) GetName() string {
 		name = name[:i]
 	}
 	return name
+}
+
+
+func (c *Command) Usage() {
+	utils.TemplateRendering(cmdUsage, c)
+	os.Exit(0)
 }

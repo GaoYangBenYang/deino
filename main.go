@@ -5,9 +5,8 @@ import (
 	"os"
 
 	"github.com/GaoYangBenYang/deino/cmd"
-	// "github.com/GaoYangBenYang/deino/cmd/commands"
+	"github.com/GaoYangBenYang/deino/cmd/commands"
 	"github.com/GaoYangBenYang/deino/pkg/utils"
-	// "github.com/GaoYangBenYang/deino/config"
 )
 
 func main() {
@@ -29,30 +28,26 @@ func main() {
 		cmd.Help(args[1:])
 		os.Exit(0)
 	}
-	if args[0] == "version" { 
-		
-		os.Exit(0)
+	//执行已经注册的命令命令
+	for _, cmd := range commands.AvailableCommands {
+		if cmd.GetName() == args[0] && cmd.Run != nil {
+			cmd.Flag.Usage = func() { cmd.Usage() }
+			if cmd.CustomFlags {
+				args = args[1:]
+			} else {
+				cmd.Flag.Parse(args[1:])
+				args = cmd.Flag.Args()
+			}
+
+			if cmd.PreRun != nil {
+				cmd.PreRun(cmd, args)
+			}
+
+			// config.LoadConfig()
+			os.Exit(cmd.Run(cmd, args))
+			return
+		}
 	}
-	//执行命令
-	// for _, cmd := range commands.AvailableCommands {
-	// 	if cmd.GetName() == args[0] && cmd.Run != nil {
-	// 		cmd.Flag.Usage = func() { cmd.Usage() }
-	// 		if cmd.CustomFlags {
-	// 			args = args[1:]
-	// 		} else {
-	// 			cmd.Flag.Parse(args[1:])
-	// 			args = cmd.Flag.Args()
-	// 		}
-
-	// 		if cmd.PreRun != nil {
-	// 			cmd.PreRun(cmd, args)
-	// 		}
-
-	// 		config.LoadConfig()
-	// 		os.Exit(cmd.Run(cmd, args))
-	// 		return
-	// 	}
-	// }
 	//未知命令
 	utils.PrintErrorAndExit("Unknown subcommand", cmd.ERROR_TEMPLATE)
 }
