@@ -17,22 +17,22 @@ import (
 )
 
 //完整版本介绍
-const DEINO_VERSION string = `	  
- ____         _               
+const DEINO_VERSION string = ` ____         _               
 |  _ \   ___ (_) _ __    ___  
 | | | | / _ \| || '_ \  / _ \ 
 | |_| ||  __/| || | | || (_) |
 |____/  \___||_||_| |_| \___/  v{{ .DeinoVersion }}%s
-├── ReactVersion      : {{ .ReactVersion }}
-├── TypeScriptVersion : {{ .TypeScriptVersion }}
+
+├── ReactVersion      : {{ ".ReactVersion" }}
+├── TypeScriptVersion : {{ ".TypeScriptVersion" }}
 ├── GoVersion         : {{ .GoVersion }}
-├── GOOS     		  : {{ .GOOS }}
-├── GOARCH 		      : {{ .GOARCH }}
-├── NumCPU 		      : {{ .NumCPU }}
-├── GOPATH 		      : {{ .GOPATH }}
-├── GOROOT  	      : {{ .GOROOT }}
-├── Compiler 	      : {{ .Compiler }}
-└── Date     	      : {{ Now "2023-6-13" }}%s
+├── GOOS              : {{ .GOOS }}
+├── GOARCH            : {{ .GOARCH }}
+├── NumCPU            : {{ .NumCPU }}
+├── GOPATH            : {{ .GOPATH }}
+├── GOROOT            : {{ .GOROOT }}
+├── Compiler          : {{ .Compiler }}
+└── Date              : {{ Now "2023-6-13" }}%s
 `
 
 type DeinoVersion struct {

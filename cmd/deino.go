@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/GaoYangBenYang/deino/cmd/commands"
+	_ "github.com/GaoYangBenYang/deino/cmd/commands/version"
 	"github.com/GaoYangBenYang/deino/pkg/utils"
 )
 
@@ -57,7 +58,7 @@ func Help(args []string) {
 	}
 	//子命令文档渲染
 	for _, cmd := range commands.AvailableCommands {
-		fmt.Println(args[0],cmd)
+		fmt.Println(args[0], cmd)
 		// if cmd.GetName() == args[0] {
 		// 	// utils.TemplateRendering(HELP_TEMPLATE, cmd)
 		// 	fmt.Println("子帮助文档")
