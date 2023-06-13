@@ -4,20 +4,20 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/GaoYangBenYang/dego/cmd/commands"
-	"github.com/GaoYangBenYang/dego/pkg/utils"
+	"github.com/GaoYangBenYang/deino/cmd/commands"
+	"github.com/GaoYangBenYang/deino/pkg/utils"
 )
 
 // 使用方法渲染模板
 const USAGE_TEMPLATE = `
 {{"USAGE" | headline}}
-    {{"dego command [arguments]" | bold}}
+    {{"deino command [arguments]" | bold}}
 
 {{"AVAILABLE COMMANDS" | headline}}
 	{{range .}}{{if .Runnable}}
 		{{.Name | printf "%-11s" | bold}} {{.Short}}{{end}}{{end}}
 
-Use {{"dego help [command]" | bold}} for more information about a command.
+Use {{"deino help [command]" | bold}} for more information about a command.
 `
 
 // 帮助文档模板渲染
@@ -34,9 +34,9 @@ const HELP_TEMPLATE = `
 
 // 错误模板渲染
 const ERROR_TEMPLATE = `
-dego: %s.
+deino: %s.
 
-Use {{"dego help" | bold}} for more information.
+Use {{"deino help" | bold}} for more information.
 `
 
 func Usage() {

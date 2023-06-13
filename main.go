@@ -4,14 +4,14 @@ import (
 	"flag"
 	"os"
 
-	"github.com/GaoYangBenYang/dego/cmd"
-	// "github.com/GaoYangBenYang/dego/cmd/commands"
-	"github.com/GaoYangBenYang/dego/pkg/utils"
-	// "github.com/GaoYangBenYang/dego/config"
+	"github.com/GaoYangBenYang/deino/cmd"
+	// "github.com/GaoYangBenYang/deino/cmd/commands"
+	"github.com/GaoYangBenYang/deino/pkg/utils"
+	// "github.com/GaoYangBenYang/deino/config"
 )
 
 func main() {
-	//检查dego是否有版本更新
+	//检查deino是否有版本更新
 	utils.NoticeUpdate()
 	//Usage打印到标准错误输出一个使用信息，记录了所有注册的flag。本函数是一个包变量，可以将其修改为指向自定义的函数。
 	flag.Usage = cmd.Usage

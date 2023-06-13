@@ -8,7 +8,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/GaoYangBenYang/dego/pkg/colors"
+	"github.com/GaoYangBenYang/deino/pkg/colors"
 )
 
 // 更新通知
