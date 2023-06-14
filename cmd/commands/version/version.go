@@ -35,7 +35,7 @@ const DEINO_VERSION string = ` ____         _
 └── Date              : {{ Now "2023-6-13" }}%s
 `
 
-type DeinoVersion struct {
+type Version struct {
 	GoVersion  string
 	GOOS       string
 	GOARCH     string
@@ -74,7 +74,7 @@ func versionInformation(cmd *commands.Command, args []string) int {
 	// stdout := cmd.Out()
 
 	if outputFormat != "" {
-		deinoVersion := DeinoVersion{
+		version := Version{
 			GoVersion:  runtime.Version(),
 			GOOS:       runtime.GOOS,
 			GOARCH:     runtime.GOARCH,
@@ -84,7 +84,7 @@ func versionInformation(cmd *commands.Command, args []string) int {
 			Compiler:   runtime.Compiler,
 			DeinoVersion: config.VERSION,
 		}
-		b, err := json.MarshalIndent(deinoVersion, "", "    ")
+		b, err := json.MarshalIndent(version, "", "    ")
 		if err != nil {
 			fmt.Println(err.Error())
 		}
@@ -122,7 +122,7 @@ func show(out io.Writer, content string) {
 		fmt.Println("Cannot parse the banner template:", err)
 	}
 
-	err = t.Execute(out, DeinoVersion{
+	err = t.Execute(out, Version{
 		runtime.Version(),
 		runtime.GOOS,
 		runtime.GOARCH,
