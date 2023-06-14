@@ -35,7 +35,7 @@ func TemplateRendering(text string, data interface{}) {
 // FuncMap 返回不同模板中使用的函数映射
 func FuncMap() template.FuncMap {
 	return template.FuncMap{
-		"trim":	 	  strings.TrimSpace,
+		"trim":       strings.TrimSpace,
 		"bold":       colors.Bold,
 		"headline":   colors.MagentaBold,
 		"foldername": colors.RedBold,
@@ -63,7 +63,7 @@ func EndLine() string {
 	return "\n"
 }
 
-//打印错误信息并退出
+// 打印错误信息并退出
 func PrintErrorAndExit(message, errorTemplate string) {
 	TemplateRendering(fmt.Sprintf(errorTemplate, message), nil)
 }

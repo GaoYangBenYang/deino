@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"html/template"
+	"text/template"
 	"io"
 	"io/ioutil"
 	"os"
@@ -17,12 +17,12 @@ import (
 )
 
 //完整版本介绍
-const DEINO_VERSION string = ` ____         _               
+const DEINO_VERSION string = `%s%s ____         _
 |  _ \   ___ (_) _ __    ___  
 | | | | / _ \| || '_ \  / _ \ 
 | |_| ||  __/| || | | || (_) |
 |____/  \___||_||_| |_| \___/  v{{ .DeinoVersion }}%s
-
+%s%s
 ├── ReactVersion      : {{ ".ReactVersion" }}
 ├── TypeScriptVersion : {{ ".TypeScriptVersion" }}
 ├── GoVersion         : {{ .GoVersion }}
@@ -32,7 +32,7 @@ const DEINO_VERSION string = ` ____         _
 ├── GOPATH            : {{ .GOPATH }}
 ├── GOROOT            : {{ .GOROOT }}
 ├── Compiler          : {{ .Compiler }}
-└── Date              : {{ Now "2023-6-13" }}%s
+└── Date              : {{ Now "Monday, 2 Jan 2006" }}%s
 `
 
 type Version struct {
@@ -72,7 +72,6 @@ func versionInformation(cmd *commands.Command, args []string) int {
 
 	cmd.Flag.Parse(args)
 	// stdout := cmd.Out()
-
 	if outputFormat != "" {
 		version := Version{
 			GoVersion:  runtime.Version(),
@@ -92,7 +91,7 @@ func versionInformation(cmd *commands.Command, args []string) int {
 		return 0
 	}
 
-	deinoVersion := fmt.Sprintf(DEINO_VERSION, "\x1b[35m", "\x1b[1m","\x1b[0m", "\x1b[32m", "\x1b[1m", "\x1b[0m")
+	deinoVersion := fmt.Sprintf(DEINO_VERSION, "\x1b[35m", "\x1b[31m","\x1b[0m", "\x1b[10m", "\x1b[22m", "\x1b[20m")
 	InitBanner(os.Stderr, bytes.NewBufferString(deinoVersion))
 	return 0
 }
@@ -114,9 +113,7 @@ func InitBanner(out io.Writer, in io.Reader) {
 }
 
 func show(out io.Writer, content string) {
-	t, err := template.New("banner").
-		Funcs(template.FuncMap{"Now": Now}).
-		Parse(content)
+	t, err := template.New("banner").Funcs(template.FuncMap{"Now": Now}).Parse(content)
 
 	if err != nil {
 		fmt.Println("Cannot parse the banner template:", err)
