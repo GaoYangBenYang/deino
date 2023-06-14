@@ -48,10 +48,10 @@ type Version struct {
 }
 
 var versionCommand = &commands.Command{
-	Run: versionInformation,
-	UsageLine: "version",
-	Short:     "Prints the current Deino version",
-	Long: `Prints the current Bee, Beego and Go version alongside the platform information.`,
+	Run:                  versionInformation,
+	Name:                 "version",
+	ShortDescription:     "Prints the current Deino version",
+	FullDescription:      "Prints the current Bee, Beego and Go version alongside the platform information.",
 }
 
 var outputFormat string

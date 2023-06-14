@@ -30,22 +30,26 @@ func main() {
 	}
 	//执行已经注册的命令命令
 	for _, cmd := range commands.AvailableCommands {
-		if cmd.GetName() == args[0] && cmd.Run != nil {
+		//判断命令名称是否与输入匹配以及是否绑定命令函数
+		if cmd.Name == args[0] && cmd.Run != nil {
+
 			cmd.Flag.Usage = func() { cmd.Usage() }
+			//是否自动执行函数
 			if cmd.CustomFlags {
 				args = args[1:]
 			} else {
 				cmd.Flag.Parse(args[1:])
 				args = cmd.Flag.Args()
 			}
-
-			if cmd.PreRun != nil {
-				cmd.PreRun(cmd, args)
+			//在执行函数之前的相关操作
+			if cmd.BeforeRun != nil {
+				cmd.BeforeRun(cmd, args)
 			}
 
 			// config.LoadConfig()
+
+			//结束
 			os.Exit(cmd.Run(cmd, args))
-			return
 		}
 	}
 	//未知命令
