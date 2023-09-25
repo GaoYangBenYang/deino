@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"os"
 
 	"github.com/GaoYangBenYang/deino/cmd"
@@ -32,7 +33,8 @@ func main() {
 	for _, cmd := range commands.AvailableCommands {
 		//判断命令名称是否与输入匹配以及是否绑定命令函数
 		if cmd.Name == args[0] && cmd.Run != nil {
-
+			fmt.Println("111")
+			fmt.Println(cmd.Name, cmd.Run)
 			cmd.Flag.Usage = func() { cmd.Usage() }
 			//是否自动执行函数
 			if cmd.CustomFlags {
